@@ -17,7 +17,7 @@ async function run() {
     const githubApi = githubApiHandlerCreator(github.context.payload, githubApiToken);
     const prNumber = github.context.payload.pull_request.number;
 
-    const githubCommits = githubApi({resource: `pulls/${prNumber}/commits`});
+    const githubCommits = await githubApi({resource: `pulls/${prNumber}/commits`});
 
     console.log('githubCommits: ', JSON.stringify(githubCommits));
 
