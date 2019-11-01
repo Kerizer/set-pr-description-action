@@ -11,7 +11,7 @@ async function run() {
     const githubUserName:string = core.getInput('github-user-name');
     const githubUserEmail:string = core.getInput('github-user-email');
 
-    console.log(github.context.payload);
+    console.log(github.context.payload, { depth: null });
 
     if (githubApiToken !== null) {
       // pullRequestApiUrl = pullRequestApiUrl.replace("api.github.com", `${githubApiToken}@api.github.com`);
