@@ -23,6 +23,9 @@
     "@actions/exec": "^1.0.1",
     "@actions/github": "^1.1.0",
     "@types/node-fetch": "^2.5.2",
+    "apollo-boost": "^0.4.4",
+    "graphql": "^14.5.8",
+    "graphql-tag": "^2.10.1",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
