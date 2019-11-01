@@ -1,5 +1,5 @@
 name: 'Set PR description'
-description: 'Analyse all merge commits in PR and creates change-notes based on child PR's names'
+description: 'Analyse all merge commits in PR and creates change-notes based on child PRs names'
 inputs:
   github-token:  # id of input
     description: 'Github api token if you want to fetch private repo'
@@ -15,7 +15,7 @@ inputs:
     default: ''
 outputs:
   time: # id of output
-    description: 'The time action is finished to do it's job'
+    description: 'The time action is finished to do its job'
 runs:
   using: 'node12'
   main: 'dist/index.js'
