@@ -1,5 +1,5 @@
-name: 'Complete release'
-description: 'Complete release'
+name: 'Set PR description'
+description: 'Analyse all merge commits in PR and creates change-notes based on child PR's names'
 inputs:
   github-token:  # id of input
     description: 'Github api token if you want to fetch private repo'
@@ -12,7 +12,7 @@ inputs:
   github-user-email:
     description: 'Github user email'
     required: false
-    default: null
+    default: ''
 outputs:
   time: # id of output
     description: 'The time action is finished to do it's job'
