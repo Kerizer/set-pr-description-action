@@ -25,7 +25,7 @@ async function run() {
 
     const listOfPrTitles = await getAssociatedPRsTitles(githubApiToken, githubMergeShaList);
 
-    const body = `${listOfPrTitles.map(title => ` - ${title}\n`)}`;
+    const body = `${listOfPrTitles.map(title => ` - ${title}\n`).join("")}`;
     await githubApi({method: 'PATCH', resource: `pulls/${prNumber}`, params: {body}});
 
     if (githubUserName) {
