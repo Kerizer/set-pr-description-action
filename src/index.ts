@@ -1,6 +1,7 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
 import { gitExec, githubApiHandlerCreator } from './functions';
+import getAssociatedPRsTitles from './get-associated-prs-titles';
 
 async function run() {
   try {

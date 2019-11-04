@@ -55,3 +55,5 @@ const getAssociatedPRsTitles = async (githubApiToken:string, commits:string[]) =
 interface GithubApiResponse {
   [key: string]: any;
 }
+
+export default getAssociatedPRsTitles;
