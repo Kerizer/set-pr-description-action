@@ -18,8 +18,12 @@ async function run() {
     const prNumber = github.context.payload.pull_request.number;
 
     const githubCommits = await githubApi({resource: `pulls/${prNumber}/commits`});
+    const githubMergeShaList = githubCommits
+      .filter((item:GithubApiResponse) => item.parants.length > 1)
+      .map((item:GithubApiResponse) => item.sha);
+    const listOfPrTitles = getAssociatedPRsTitles(githubApiToken, githubMergeShaList)
 
-    console.log('githubCommits: ', JSON.stringify(githubCommits));
+    console.log('List of titles: ', listOfPrTitles);
 
     if (githubUserName) {
       await gitExec('config', '--global', 'user.name', `"${githubUserName}"`);
@@ -38,3 +42,7 @@ async function run() {
 };
 
 run();
+
+interface GithubApiResponse {
+  [key: string]: any
+}
