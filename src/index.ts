@@ -23,11 +23,10 @@ async function run() {
     
     const githubMergeShaList = githubMergeCommitsList.map((item:GithubApiResponse) => item.parents[(item.parents.length - 1)].sha);
 
-    const listOfPrTitles = await getAssociatedPRsTitles(githubApiToken, githubMergeShaList)
+    const listOfPrTitles = await getAssociatedPRsTitles(githubApiToken, githubMergeShaList);
 
-    console.log('List of merge commits: ', githubMergeCommitsList);
-    console.log('List of sha\'s: ', githubMergeShaList);
-    console.log('List of titles: ', listOfPrTitles);
+    const body = `${listOfPrTitles.map(title => ` - ${title}\n`)}`;
+    await githubApi({method: 'PATCH', resource: `pulls/${prNumber}`, params: {body}});
 
     if (githubUserName) {
       await gitExec('config', '--global', 'user.name', `"${githubUserName}"`);

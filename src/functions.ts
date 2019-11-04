@@ -13,13 +13,13 @@ export const githubApiHandlerCreator = (githubContextPayload:WebhookPayload, git
   const repoName = githubContextPayload.pull_request.head.repo.full_name;
   const apiUrl = `https://${githubToken}@api.github.com/repos/${repoName}/`;
   return async (options:GihubApiHandlerInterface) => {
-    const { resource, params, method='get' } = options;
+    const { resource, params, method='GET' } = options;
     const fetchOptions: GithubApiRequest = {
       method
     }
     let fetchUrl = `${apiUrl}${resource}`;;
     if (params) {
-      if (method==='get') {
+      if (method==='GET') {
         fetchUrl += `?${queryParams(params)}`;
       } else {
         fetchOptions.body = JSON.stringify(params);
