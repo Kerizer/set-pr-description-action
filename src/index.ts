@@ -18,8 +18,9 @@ async function run() {
     const prNumber = github.context.payload.pull_request.number;
 
     const githubCommits = await githubApi({resource: `pulls/${prNumber}/commits`});
+
     const githubMergeShaList = githubCommits
-      .filter((item:GithubApiResponse) => item.parants.length > 1)
+      .filter((item:GithubApiResponse) => item.parents.length > 1)
       .map((item:GithubApiResponse) => item.sha);
     const listOfPrTitles = getAssociatedPRsTitles(githubApiToken, githubMergeShaList)
 
