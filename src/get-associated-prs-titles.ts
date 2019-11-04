@@ -45,10 +45,9 @@ const getAssociatedPRsTitles = async (githubApiToken:string, commits:string[]) =
   .catch( (error:GithubApiResponse) => console.error(error));
   
   const prs = Object.keys(data).map( (key) => data[key].associatedPullRequests).filter(pr => pr);
-  const edges = prs.map(pr => pr.edges)
-  const nodes = edges.map(edge => edge[0].node)
-  const titles = nodes.map(node => node.title)
-  console.log(titles);
+  const edges = prs.map(pr => pr.edges);
+  const nodes = edges.map(edge => edge[0].node);
+  const titles = nodes.map(node => node.title);
   return titles;
 }
 

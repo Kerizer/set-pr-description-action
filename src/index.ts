@@ -22,7 +22,7 @@ async function run() {
 
     const githubMergeShaList = githubCommits
       .filter((item:GithubApiResponse) => item.parents.length > 1)
-      .map((item:GithubApiResponse) => item.sha);
+      .map((item:GithubApiResponse) => item.parents[(item.parents.length - 1)].sha); // item.sha will point you to wrong merge commit if release bracnh was merged and then reopend
     const listOfPrTitles = await getAssociatedPRsTitles(githubApiToken, githubMergeShaList)
 
     console.log('List of titles: ', listOfPrTitles);
