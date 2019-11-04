@@ -14,17 +14,19 @@ async function run() {
     const githubUserName:string = core.getInput('github-user-name');
     const githubUserEmail:string = core.getInput('github-user-email');
 
-    // console.log();github.context.payload.
     const githubApi = githubApiHandlerCreator(github.context.payload, githubApiToken);
     const prNumber = github.context.payload.pull_request.number;
 
     const githubCommits = await githubApi({resource: `pulls/${prNumber}/commits`});
 
-    const githubMergeShaList = githubCommits
-      .filter((item:GithubApiResponse) => item.parents.length > 1)
-      .map((item:GithubApiResponse) => item.parents[(item.parents.length - 1)].sha); // item.sha will point you to wrong merge commit if release bracnh was merged and then reopend
+    const githubMergeCommitsList = githubCommits.filter((item:GithubApiResponse) => item.parents.length > 1);
+    
+    const githubMergeShaList = githubMergeCommitsList.map((item:GithubApiResponse) => item.parents[(item.parents.length - 1)].sha);
+
     const listOfPrTitles = await getAssociatedPRsTitles(githubApiToken, githubMergeShaList)
 
+    console.log('List of merge commits: ', githubMergeCommitsList);
+    console.log('List of sha\'s: ', githubMergeShaList);
     console.log('List of titles: ', listOfPrTitles);
 
     if (githubUserName) {
