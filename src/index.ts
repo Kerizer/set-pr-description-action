@@ -23,7 +23,7 @@ async function run() {
     const githubMergeShaList = githubCommits
       .filter((item:GithubApiResponse) => item.parents.length > 1)
       .map((item:GithubApiResponse) => item.sha);
-    const listOfPrTitles = getAssociatedPRsTitles(githubApiToken, githubMergeShaList)
+    const listOfPrTitles = await getAssociatedPRsTitles(githubApiToken, githubMergeShaList)
 
     console.log('List of titles: ', listOfPrTitles);
 
