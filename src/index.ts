@@ -17,14 +17,16 @@ async function run() {
 
     const githubApi = githubApiHandlerCreator(github.context.payload, githubApiToken);
     const prNumber = github.context.payload.pull_request.number;
+    const ghName = github.context.payload.pull_request.head.repo.name;
+    const ghOwner = github.context.payload.pull_request.head.repo.owner.login;
 
     const githubCommits = await githubApi({resource: `pulls/${prNumber}/commits`});
 
     const githubMergeCommitsList = githubCommits.filter((item:GithubApiResponse) => item.parents.length > 1);
     
-    const githubMergeShaList = githubMergeCommitsList.map((item:GithubApiResponse) => item.parents[0].sha);
+    const githubMergeShaList = githubMergeCommitsList.map((item:GithubApiResponse) => item.parents[(item.parents.length - 1)].sha);
 
-    const listOfPrTitles = await getAssociatedPRsTitles(githubApiToken, githubMergeShaList);
+    const listOfPrTitles = await getAssociatedPRsTitles(githubApiToken, githubMergeShaList, {repo: ghName, owner: ghOwner});
 
     const body = `${listOfPrTitles.map(title => ` - ${title}\n`).join("")}`;
     await githubApi({method: 'PATCH', resource: `pulls/${prNumber}`, params: {body}});

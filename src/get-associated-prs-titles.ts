@@ -2,14 +2,13 @@ const ApolloClient = require('apollo-boost').default;
 const gql = require('graphql-tag').default;
 const fetch = require('node-fetch').default;
 
-const getAssociatedPRsTitles = async (githubApiToken:string, commits:string[]) => {
+const getAssociatedPRsTitles = async (githubApiToken:string, commits:string[], options: Options) => {
   const client = new ApolloClient({
     uri: `https://${githubApiToken}@api.github.com/graphql`,
     fetch
   });
 
-  const owner = "bolteu";
-  const repo = "food-delivery-courier-infra-sandbox";
+  const { repo, owner } = options;
 
   const commitsQ = commits.map( (commit, index) => (
     `c${commit}${index}: object(expression: "${commit}") {
@@ -53,6 +52,11 @@ const getAssociatedPRsTitles = async (githubApiToken:string, commits:string[]) =
 
 interface GithubApiResponse {
   [key: string]: any;
+}
+
+interface Options {
+  repo: string;
+  owner: string;
 }
 
 export default getAssociatedPRsTitles;
