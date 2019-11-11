@@ -5,6 +5,7 @@ import getAssociatedPRsTitles from './get-associated-prs-titles';
 
 async function run() {
   try {
+    // const githubApiToken:string = core.getInput('github-pr-number');
     if (!github.context.payload.pull_request) {
       throw {
         message: "This action can only be executed from PR"

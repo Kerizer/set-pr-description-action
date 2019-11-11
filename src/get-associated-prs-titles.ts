@@ -46,7 +46,7 @@ const getAssociatedPRsTitles = async (githubApiToken:string, commits:string[]) =
   
   const prs = Object.keys(data).map( (key) => data[key].associatedPullRequests).filter(pr => pr);
   const edges = prs.map(pr => pr.edges);
-  const nodes = edges.map(edge => edge[0].node);
+  const nodes = edges.map(edge => edge[0] ? edge[0].node : { title: `No title found for ${edge}` });
   const titles = nodes.map(node => node.title);
   return titles;
 }
