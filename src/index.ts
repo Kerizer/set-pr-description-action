@@ -20,7 +20,12 @@ async function run() {
     const ghName = github.context.payload.pull_request.head.repo.name;
     const ghOwner = github.context.payload.pull_request.head.repo.owner.login;
 
-    const githubCommits = await githubApi({resource: `pulls/${prNumber}/commits`});
+    let githubCommits:GithubApiResponse[] = [];
+
+    for (let i=0; githubCommits.length >= (i*100); i++) {
+      const data = await githubApi({resource: `pulls/422/commits`, params: {page: i+1, per_page: 100}});
+      githubCommits = [...githubCommits, ...data];
+    }
 
     const githubMergeCommitsList = githubCommits.filter((item:GithubApiResponse) => item.parents.length > 1);
     
