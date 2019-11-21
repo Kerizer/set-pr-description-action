@@ -23,7 +23,7 @@ async function run() {
     let githubCommits:GithubApiResponse[] = [];
 
     for (let i=0; githubCommits.length >= (i*100); i++) {
-      const data = await githubApi({resource: `pulls/422/commits`, params: {page: i+1, per_page: 100}});
+      const data = await githubApi({resource: `pulls/${prNumber}/commits`, params: {page: i+1, per_page: 100}});
       githubCommits = [...githubCommits, ...data];
     }
 
