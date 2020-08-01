@@ -22,7 +22,7 @@
     "@actions/core": "^1.2.0",
     "@actions/exec": "^1.0.4",
     "@actions/github": "^1.1.0",
-    "@types/node-fetch": "^2.5.5",
+    "@types/node-fetch": "^2.5.7",
     "apollo-boost": "^0.4.4",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.1",
